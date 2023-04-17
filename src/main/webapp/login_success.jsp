@@ -8,13 +8,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <jsp:useBean id="users" class="com.example.genealogy.bean.User" scope="session"/>
+    <title>welcome to here</title>
 </head>
 <body>
     <%!
-    public String getStr(){
-        return "hello";
-    }
+
     %>
+    <h1><%=users.getUsername()%></h1>
+
 </body>
 </html>

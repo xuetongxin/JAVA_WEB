@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: xsl20
-  Date: 2023/4/16
-  Time: 19:04
+  Date: 2023/4/17
+  Time: 22:49
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -10,10 +10,12 @@
 <head>
     <title>Title</title>
     <style>
-        body{
-            background-image: url("img/background.jpg");
-            background-repeat: no-repeat;
-            background-size: cover;
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            font-family: "lato", sans-serif;
         }
         .signupFrm {
             display: flex;
@@ -84,41 +86,44 @@
             background-color: #9867C5;
             transform: translateY(-2px);
         }
-
         a{
-            font-size: 15px;
-            font-color: blue;
+            display: block;
+            text-align: left;
+            margin-top: 20px;
+            font-size: 8px;
+            color: blue;
             text-decoration:none;
-        }
-        a:hover {
-            font-size: 10px;
-            font-color: purple;
-            text-decoration:none;
-        }
-        .submitBtn:hover {
-            background-color: #9867C5;
-            transform: translateY(-2px);
         }
         input::placeholder {
             color: gray;
         }
-
     </style>
 </head>
-<body >
+<body>
 <div class="signupFrm">
-    <form action="CheckUser" class="form" method="get">
-        <h1 class="title">Login</h1>
-        <div class="inputContainer">
-            <input class="input" type="text" name="username" placeholder="Username"  autofocus required>
-        </div>
-        <div class="inputContainer">
-            <input class="input" type="password" name="password" placeholder="Password" required>
-        </div>
-        <a href="sign_up.jsp" >Sign up</a>
-        <input type="submit" class="submitBtn" value="Log in">
-    </form>
+    <form action="" class="form">
+        <h1 class="title">Sign up</h1>
 
+        <div class="inputContainer">
+            <input type="text" class="input" placeholder="Email">
+        </div>
+
+        <div class="inputContainer">
+            <input type="text" class="input" placeholder="UserName">
+        </div>
+
+        <div class="inputContainer">
+            <input type="password" class="input" placeholder="Password">
+        </div>
+
+        <div class="inputContainer">
+            <input type="password" class="input" placeholder="Password">
+        </div>
+
+        <a href="login.jsp">Already have an account?</a>
+
+        <input type="submit" class="submitBtn" value="Sign up">
+    </form>
 </div>
 </body>
 </html>
