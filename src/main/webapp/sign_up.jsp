@@ -98,31 +98,43 @@
             color: gray;
         }
     </style>
+    <script type="text/javascript">
+        function checkpassword() {
+            var password = document.getElementById("password").value;
+            var repassword = document.getElementById("repeat_password").value;
+            if(password == repassword) {
+                return true;
+            }else {
+                alert("两次密码输入不一致，请重新输入！");
+            }
+            return false
+        }
+    </script>
 </head>
 <body>
-<div class="signupFrm">
-    <form action="" class="form">
+<div class="signupFrm" >
+    <form action="SingUp" class="form" onsubmit="return checkpassword()" method="get">
         <h1 class="title">Sign up</h1>
 
         <div class="inputContainer">
-            <input type="text" class="input" placeholder="Email">
+            <input type="text" class="input" name="email" id="email" placeholder="Email">
         </div>
 
         <div class="inputContainer">
-            <input type="text" class="input" placeholder="UserName">
+            <input type="text" class="input" name="username" id="username" placeholder="UserName">
         </div>
 
         <div class="inputContainer">
-            <input type="password" class="input" placeholder="Password">
+            <input type="password" class="input" name="password" id="passw" placeholder="Password">
         </div>
 
         <div class="inputContainer">
-            <input type="password" class="input" placeholder="Password">
+            <input type="password" class="input"   id="repeat_password" placeholder="Repeat Password"><span id="insert"></span>
         </div>
 
         <a href="login.jsp">Already have an account?</a>
 
-        <input type="submit" class="submitBtn" value="Sign up">
+        <input type="submit"  class="submitBtn" id="submit" name="submit" value="Sign up">
     </form>
 </div>
 </body>

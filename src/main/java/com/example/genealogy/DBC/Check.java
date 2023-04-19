@@ -2,7 +2,7 @@ package com.example.genealogy.DBC;
 
 import java.sql.*;
 
-public class CheckUser {
+public class Check {
 
     public boolean checkUser(String username, String password) {
 

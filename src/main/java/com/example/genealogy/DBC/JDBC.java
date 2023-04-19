@@ -18,12 +18,6 @@ public class JDBC {
         return DriverManager.getConnection(url,name,passwords);
     }
 
-    public void closeConnection(Connection connection) throws SQLException {
-        if(connection!=null){
-            connection.close();
-        }
-    }
-
     public void closeConnection(Connection connection,PreparedStatement preparedStatement,ResultSet resultSet) throws SQLException {
         if(connection!=null)
             connection.close();

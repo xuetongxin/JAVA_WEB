@@ -15,7 +15,7 @@ public class CheckUserName extends HttpServlet {
         user.setUsername( request.getParameter("username"));
         user.setPassword(request.getParameter("password"));
 
-        CheckUser checkUser=new CheckUser();
+        Check checkUser=new Check();
         if(checkUser.checkUser(user.getUsername(),user.getPassword()))
             response.sendRedirect("login_success.jsp");
     }
