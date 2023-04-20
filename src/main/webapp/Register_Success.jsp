@@ -12,11 +12,8 @@
     <title>Register Successfully</title>
 </head>
 <body>
-<p>你的账号已经激活</p>
     <%
-        String email=request.getParameter("email");
-        UserDB userDB=new UserDB();
-        userDB.Update_UserEmail_Statue(email);
+        out.print("你的账号已激活");
     %>
 </body>
 </html>

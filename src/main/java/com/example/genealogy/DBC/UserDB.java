@@ -2,9 +2,7 @@ package com.example.genealogy.DBC;
 
 import com.example.genealogy.bean.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserDB {
     User user;
@@ -31,18 +29,76 @@ public class UserDB {
     }
 
     public boolean Update_UserEmail_Statue(String email) {
-
         try{
             Connection connection =new JDBC().getConnection();
-            PreparedStatement preparedStatement= connection.prepareStatement("update user set statue= '1' where email= ? ");
+            PreparedStatement preparedStatement= connection.prepareStatement("update users set statue= '1' where email= ? ");
             preparedStatement.setString(1, email);
-            return preparedStatement.execute();
+            int count=preparedStatement.executeUpdate();
+            if (count>0)
+                return true;
         }catch (SQLException e) {
             throw new RuntimeException(e);
         }catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+            return false;
+    }
 
+    public boolean checkUser(String username, String password) {
+
+        System.out.println("username: " + username);
+        String sql = "select count(*) from users where username='" + username + "' and password='" + password + "'";
+        try {
+            Statement statement = new JDBC().getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            int count = -1;
+            while (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+            System.out.println(count);
+            if (count > 0) {
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+    public boolean IsNameExist(String username){
+
+        try {
+            PreparedStatement preparedStatement=new JDBC().getConnection().prepareStatement("select count(*) from users where username=?");
+            preparedStatement.setString(1,username);
+            return preparedStatement.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+    public boolean IsEmailExist(String email){
+
+        try {
+            PreparedStatement preparedStatement=new JDBC().getConnection().prepareStatement("select count(*) from users where username=?");
+            preparedStatement.setString(1,email);
+            return preparedStatement.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        UserDB userDB=new UserDB();
+        boolean a=userDB.IsNameExist("ximeng");
+        System.out.println(a);
     }
 
 }

@@ -12,10 +12,6 @@
     <title>welcome to here</title>
 </head>
 <body>
-    <%!
-
-    %>
-    <h1><%=users.getUsername()%></h1>
 
 </body>
 </html>

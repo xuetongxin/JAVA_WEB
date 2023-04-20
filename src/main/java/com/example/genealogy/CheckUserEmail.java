@@ -8,22 +8,21 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-public class CheckUserName extends HttpServlet {
+public class CheckUserEmail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username=req.getParameter("username");
+        String email=req.getParameter("email");
         UserDB userDB=new UserDB();
-        if (userDB.IsNameExist(username)){
+        if (userDB.IsEmailExist(email)){
             resp.setContentType("text/plain");
-            resp.getWriter().write("用户名存在");
+            resp.getWriter().write("邮箱已注册");
         }else {
             resp.setContentType("text/plain");
-            resp.getWriter().write("用户名可用");
+            resp.getWriter().write("邮箱可用");
         }
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      doGet(req,resp);
+        doGet(req,resp);
     }
 }
-

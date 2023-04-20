@@ -56,7 +56,7 @@ public class SendEmail extends Thread {
 
             // Set Subject: 头部头字段
             message.setSubject("注册激活邮件");
-            String url = "http://localhost:8080/Genealogy_war/Register_Success.jsp/?email="+ToEmail;
+            String url = "http://localhost:8080/Genealogy_war/Active?email="+ToEmail;
 
             String content = username+ "(" + ToEmail + "),您好<br/>感谢您注册  !<br/>"
                     + "<b>验证您的邮箱地址注册</b><br/>请点击下面的链接来确认您的注册<br/>"
