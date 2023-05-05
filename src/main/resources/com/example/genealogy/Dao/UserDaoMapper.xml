@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.genealogy.Dao.UserDaoMapper">
+
+    <select id="QueryUser" resultType="User" parameterType="user">
+        select *
+        from users
+            <where>
+                <if test="username!=null and username!=''">
+                    username = #{username}
+                </if>
+                <if test="password !=null and password!=''">
+                    and password = #{password}
+                </if>
+                <if test="email!=null and email!=''">
+                    and email =#{email}
+                </if>
+            </where>
+
+    </select>
+
+    <select id="QueryAllUser" resultType="User">
+        select *
+        from users
+    </select>
+
+    <insert id="InsertUser" parameterType="User" keyProperty="id" useGeneratedKeys="true">
+        insert into users (email, username, password)
+        values (#{email}, #{username}, #{password});
+    </insert>
+
+    <update id="UpdatePassword" parameterType="String">
+        update users
+        <set>
+            password=#{password}
+        </set>
+        where username=#{username}
+    </update>
+    <update id="UpdateStatus" parameterType="User">
+        update users
+        set status="1"
+        where email = #{email}
+    </update>
+
+    <delete id="DeleteUser" parameterType="User">
+        delete
+        user where username= #{username}
+    </delete>
+
+</mapper>

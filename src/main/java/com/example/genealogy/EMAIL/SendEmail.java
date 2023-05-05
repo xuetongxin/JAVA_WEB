@@ -12,12 +12,12 @@ import javax.mail.internet.MimeMessage;
 
 public class SendEmail extends Thread {
     // 收件人电子邮箱
-    String ToEmail = null;
-    String username = null;
+    private String ToEmail = null;
+    private String username = null;
     // 发件人电子邮箱
-    String FromEmail = "xsl203457@163.com";
+    private static String FromEmail = "xsl203457@163.com";
     // 指定发送邮件的主机为 smtp.163.com
-    String host = "smtp.163.com";
+    private String host = "smtp.163.com";
     public SendEmail(String ToEmail) throws MessagingException {
         this.ToEmail = ToEmail;
     }
@@ -67,8 +67,14 @@ public class SendEmail extends Thread {
             // 设置消息体
             message.setContent(content, "text/html;charset=utf-8");
             // 发送消息
-            Transport.send(message);
 
+            try {
+                System.out.println("发送消息");
+                Transport.send(message);
+                System.out.println("发送成功");
+            }catch (Exception e){
+                e.getStackTrace();
+            }
             System.out.println("Sent message successfully....from run");
         } catch (Exception e) {
             e.getStackTrace();
@@ -76,7 +82,7 @@ public class SendEmail extends Thread {
     }
     public static void main(String[] args) throws MessagingException {
         SendEmail sendEmail = new SendEmail("xsl2034576972@gmail.com","ximeng");
-        //System.out.println(sendEmail.sendemail());
+        sendEmail.start();
 
     }
 

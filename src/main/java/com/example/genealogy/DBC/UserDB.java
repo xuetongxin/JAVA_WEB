@@ -1,104 +1,84 @@
 package com.example.genealogy.DBC;
 
-import com.example.genealogy.bean.User;
+import com.example.genealogy.Dao.GetSqlSession;
+import com.example.genealogy.Dao.UserDaoImpl;
 
-import java.sql.*;
+import com.example.genealogy.bean.User;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionException;
 
 public class UserDB {
     User user;
 
     public UserDB(){}
+
     public UserDB(User user){
         this.user=user;
     }
 
-    public boolean Insert_Into_User(User user) {
-        Connection connection = null;
+    public void Insert_Into_User(User user) {
+        SqlSession sqlSession=new GetSqlSession().getSqlSession();
         try {
-            connection = new JDBC().getConnection();
-            PreparedStatement preparedStatement= connection.prepareStatement("insert into users (username,password,email) values(?,?,?)");
-            preparedStatement.setString(1,user.getUsername());
-            preparedStatement.setString(2,user.getPassword());
-            preparedStatement.setString(3,user.getEmail());
-            return preparedStatement.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            UserDaoImpl userDao=new UserDaoImpl();
+            userDao.InsertUser(user);
+            sqlSession.commit();
+            System.out.println(" 用户注册成功");
+        }catch (SqlSessionException sqlSessionException){
+            sqlSessionException.toString();
+        } finally {
+           sqlSession.close();
         }
+
     }
 
     public boolean Update_UserEmail_Statue(String email) {
-        try{
-            Connection connection =new JDBC().getConnection();
-            PreparedStatement preparedStatement= connection.prepareStatement("update users set statue= '1' where email= ? ");
-            preparedStatement.setString(1, email);
-            int count=preparedStatement.executeUpdate();
-            if (count>0)
-                return true;
-        }catch (SQLException e) {
-            throw new RuntimeException(e);
-        }catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+       SqlSession sqlSession=new GetSqlSession().getSqlSession();
+       UserDaoImpl userDao=new UserDaoImpl(sqlSession);
+       return false;
+    }
+
+    public boolean checkUser(User user) {
+        SqlSession sqlSession=new GetSqlSession().getSqlSession();
+        UserDaoImpl userDao=new UserDaoImpl(sqlSession);
+        if (userDao.QueryUser(user)!=null){
+            return true;
+        }else
             return false;
     }
 
-    public boolean checkUser(String username, String password) {
-
-        System.out.println("username: " + username);
-        String sql = "select count(*) from users where username='" + username + "' and password='" + password + "'";
+    public boolean IsNameExist(User user){
+        SqlSession sqlSession=null;
         try {
-            Statement statement = new JDBC().getConnection().createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            int count = -1;
-            while (resultSet.next()) {
-                count = resultSet.getInt(1);
-            }
-            System.out.println(count);
-            if (count > 0) {
+            sqlSession=new GetSqlSession().getSqlSession();
+            UserDaoImpl userDaoImpl=new UserDaoImpl(sqlSession);
+            if (userDaoImpl.QueryUser(user)!=null)
                 return true;
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            else
+                return false;
+        }catch (SqlSessionException e){
+            e.getStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return false;
     }
 
-    public boolean IsNameExist(String username){
-
-        try {
-            PreparedStatement preparedStatement=new JDBC().getConnection().prepareStatement("select count(*) from users where username=?");
-            preparedStatement.setString(1,username);
-            return preparedStatement.execute();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+    public boolean IsEmailExist(User user){
+        SqlSession sqlSession=null;
+        try{
+            sqlSession=new GetSqlSession().getSqlSession();
+            UserDaoImpl userDaoImpl =new UserDaoImpl(sqlSession);
+            if (userDaoImpl.QueryUser(user)!=null)
+                return true;
+            else
+                return false;
+        }catch (SqlSessionException e){
+            e.getStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return false;
     }
 
-    public boolean IsEmailExist(String email){
-
-        try {
-            PreparedStatement preparedStatement=new JDBC().getConnection().prepareStatement("select count(*) from users where username=?");
-            preparedStatement.setString(1,email);
-            return preparedStatement.execute();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        return false;
-    }
-
-    public static void main(String[] args) {
-        UserDB userDB=new UserDB();
-        boolean a=userDB.IsNameExist("ximeng");
-        System.out.println(a);
-    }
 
 }

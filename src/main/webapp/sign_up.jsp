@@ -9,85 +9,13 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="CSS/submit.css">
+    <link rel="stylesheet" type="text/css" href="CSS/body.css">
+    <link rel="stylesheet" type="text/css" href="CSS/form.css">
+    <link rel="stylesheet" type="text/css" href="CSS/title.css">
+    <link rel="stylesheet" type="text/css" href="CSS/alter.css">
+    <link rel="stylesheet" type="text/css" href="CSS/input.css">
     <style>
-        body {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            background-color: white;
-            font-family: "lato", sans-serif;
-        }
-
-        .signupFrm {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .form {
-            background-color: white;
-            width: 400px;
-            border-radius: 8px;
-            padding: 20px 40px;
-            box-shadow: 0 10px 25px rgba(92, 99, 105, .2);
-        }
-
-        .title {
-            font-size: 50px;
-            margin-bottom: 50px;
-        }
-
-        .inputContainer {
-            position: relative;
-            height: 45px;
-            width: 90%;
-            margin-bottom: 17px;
-        }
-
-        .input {
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            height: 100%;
-            width: 80%;
-            border: 1px solid #DADCE0;
-            border-radius: 7px;
-            font-size: 16px;
-            padding: 0 20px;
-            outline: none;
-            background: none;
-            z-index: 1;
-        }
-
-        ::placeholder {
-            color: transparent;
-        }
-
-        .submitBtn {
-            display: block;
-            margin-left: auto;
-            padding: 15px 30px;
-            border: none;
-            background-color: purple;
-            color: white;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 30px;
-        }
-
-        .submitBtn:hover {
-            background-color: #9867C5;
-            transform: translateY(-2px);
-        }
-        .alter{
-            margin-left: 300px;
-            text-align: right;
-            font-size: 6px;
-            color: red;
-            margin-top: 10px;
-        }
         a {
             display: block;
             text-align: left;
@@ -95,10 +23,6 @@
             font-size: 8px;
             color: blue;
             text-decoration: none;
-        }
-
-        input::placeholder {
-            color: gray;
         }
     </style>
     <script type="text/javascript">
@@ -141,14 +65,14 @@
             xmlhttp.send();
         }
         function checkUseremail() {
-            var username = document.getElementById("username").value;
+            var email = document.getElementById("email").value;
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     document.getElementById("UserEmailCheck").innerHTML = this.responseText;
                 }
             };
-            xmlhttp.open("GET", "CheckUserEmail?username=" + username, true);
+            xmlhttp.open("GET", "CheckUserEmail?email=" + email, true);
             xmlhttp.send();
         }
     </script>
@@ -176,10 +100,11 @@
             <input type="password" class="input" id="repeat_password" placeholder="Repeat Password" required><span
                 id="insert"></span>
         </div>
+        <div>
+            <a href="login.jsp">Already have an account?</a>
+        </div>
 
-        <a href="login.jsp">Already have an account?</a>
-
-        <input type="submit" class="submitBtn" id="submit" name="submit" value="Sign up">
+        <input type="submit" class="submitBtn" id="submit"  value="Sign up"  onclick="checkUseremail()">
     </form>
 </div>
 </body>

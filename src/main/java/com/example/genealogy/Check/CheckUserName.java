@@ -1,6 +1,7 @@
-package com.example.genealogy;
+package com.example.genealogy.Check;
 
 import com.example.genealogy.DBC.UserDB;
+import com.example.genealogy.bean.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,9 +12,10 @@ import java.io.IOException;
 public class CheckUserName extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username=req.getParameter("username");
         UserDB userDB=new UserDB();
-        if (userDB.IsNameExist(username)){
+        User user=new User();
+        user.setUsername(req.getParameter("username"));
+        if (userDB.IsNameExist(user)){
             resp.setContentType("text/plain");
             resp.getWriter().write("用户名存在");
         }else {

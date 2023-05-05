@@ -2,12 +2,16 @@ package com.example.genealogy.bean;
 
 public class User {
 
+
+    private int id;
     private String username;
     private String password;
     private String email;
-
-    private int statue;
+    private String status;
     public User() {
+    }
+    public User(String username){
+        this.username=username;
     }
     public User(String username, String password) {
         this.username = username;
@@ -19,7 +23,13 @@ public class User {
         this.password = password;
         this.email = email;
     }
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
     public String getEmail() {
         return email;
     }
@@ -45,15 +55,16 @@ public class User {
         this.password = password;
     }
 
-    public int getStatue() {
-        return statue;
+    public String getStatue() {
+        return status;
     }
 
-    public void setStatue(int statue) {
-        this.statue = statue;
-    }
-    public String  toString() {
-        return username;
+    public void setStatue(String status) {
+        this.status = status;
     }
 
+    @Override
+    public String toString() {
+        return id +" "+ username+" "+email+ " "+ status;
+    }
 }

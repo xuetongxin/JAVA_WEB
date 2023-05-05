@@ -6,7 +6,7 @@
     document.getElementById("tishi").innerHTML="<br><font color='green'>两次密码输入一致</font>";
     document.getElementById("submit").disabled = false;
 
-}else {
+    }else {
     document.getElementById("tishi").innerHTML="<br><font color='red'>两次输入密码不一致!</font>";
     document.getElementById("submit").disabled = true;
     }
